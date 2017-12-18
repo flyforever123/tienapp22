@@ -20,5 +20,5 @@ Route::get('/', function () {
     ]); 
     $products = $result->products; 
 
-    return view('welcome', compact('products');
+    return view('welcome', compact('products'));
 });
