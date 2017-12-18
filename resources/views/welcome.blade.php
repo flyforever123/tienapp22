@@ -86,7 +86,7 @@
                 </div>
 
                 @foreach($products as $product)
-                    {{ $product->id }}
+                    {{ $product['id'] }}
                 @endforeach
 
             </div>
