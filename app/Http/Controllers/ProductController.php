@@ -15,14 +15,17 @@ class ProductController extends Controller
 
 	    $result = $shop->api()->request('GET', '/admin/products.json?page=1');
 
-	    $script_tag = $shop->api()->request('POST', '/admin/script_tags.json', 
-	    	array(
-	    		'script_tag' => array(
-	    			'event' => 'onload',
-	    			'src' => 'https:\/\/tienapp22.herokuapp.com\/js\/script.js'
-	    		)
-	    	)
-	    );
+	    $script_tag = array
+	    (
+    		'script_tag' => array(
+    			'event' => 'onload',
+    			'src' => 'https://tienapp22.herokuapp.com/js/script.js'
+    		)
+    	)
+
+	    $response = $shop->api()->request('POST', '/admin/script_tags.json', [
+	    	'json' => $script_tag,
+	    ]);
 
 	    $products = $result->body->products; 
 
