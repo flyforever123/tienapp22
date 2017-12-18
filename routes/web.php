@@ -12,12 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/show_products', function() { 
-
-    // Gets a list of products 
+	// Gets a list of products 
     $result = ShopifyApp::shop();
     $result->api()->request([ 
         'METHOD'    => 'GET', 
@@ -25,8 +20,5 @@ Route::get('/show_products', function() {
     ]); 
     $products = $result->products; 
 
-    // Print out the title of each product we received 
-    foreach($products as $product) { 
-        echo ' ' . $product->id . ': ' . $product->title . ' '; 
-    } 
+    return view('welcome', compact('products');
 });
