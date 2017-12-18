@@ -85,9 +85,6 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
 
-                @foreach($products as $product)
-                    {{ $product->title }}
-                @endforeach
 
             </div>
         </div>
