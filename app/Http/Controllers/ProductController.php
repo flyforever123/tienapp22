@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use OhMyBrew\ShopifyApp\Facades\ShopifyApp;
 use OhMyBrew\ShopifyApp\Models\Shop;
+use OhMyBrew\BasicShopifyAPI;
 
 class ProductController extends Controller
 {
@@ -12,7 +13,7 @@ class ProductController extends Controller
     {
 		$shop = ShopifyApp::shop();
 
-	    $result = $shop->api->request('GET', '/admin/products.json?page=1')->get(); 
+	    $result = $shop->api()->request('GET', '/admin/products.json?page=1')->get(); 
 	    $products = $result->products;
 
 	    dd($result);
