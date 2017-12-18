@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/', 'ProductController@index');
+Route::get('/', 'ProductController@index')->middleware('auth.shop')->name('home');
