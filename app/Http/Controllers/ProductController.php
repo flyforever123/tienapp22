@@ -15,7 +15,7 @@ class ProductController extends Controller
 
 	    $result = $shop->api()->request('GET', '/admin/products.json?page=1');
 
-	    $products = json_decode($result); 
+	    $products = json_decode($result->products); 
 
 	    return view('welcome', compact('products'));
 	}
