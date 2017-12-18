@@ -13,7 +13,9 @@ class ProductController extends Controller
 		$shop = ShopifyApp::shop();
 
 	    $result = $shop->api()->request('GET', '/admin/products.json?page=1')->get(); 
-	    $products = $result->products; 
+	    $products = $result->products;
+
+	    dd($result);
 
 	    return view('welcome', compact('products'));
 	}
