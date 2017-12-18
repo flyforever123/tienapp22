@@ -85,7 +85,7 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
                 @foreach($products as $product)
-                    {{$product->id}}
+                    {{$product['id']}}
                 @endforeach
             </div>
         </div>
