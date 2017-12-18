@@ -12,7 +12,7 @@ class ProductController extends Controller
     {
 		$shop = ShopifyApp::shop();
 
-	    $result = $shop->api()->request('GET', '/admin/products.json?page=1'); 
+	    $result = $shop->request('GET', '/admin/products.json?page=1'); 
 	    $products = $result->products; 
 
 	    return view('welcome', compact('products'));
