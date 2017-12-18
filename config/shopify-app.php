@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'api_key' => env('SHOPIFY_API_KEY', ''),
+    'api_key' => env('SHOPIFY_API_KEY', 'efd302330f583feb8e1380052cccda27'),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return [
     |
     */
 
-    'api_secret' => env('SHOPIFY_API_SECRET', ''),
+    'api_secret' => env('SHOPIFY_API_SECRET', 'a0d53374aa26aba2ff9f347237b40249'),
 
     /*
     |--------------------------------------------------------------------------
