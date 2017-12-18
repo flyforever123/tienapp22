@@ -19,7 +19,7 @@ class ProductController extends Controller
 	    	array(
 	    		'script_tag' => array(
 	    			'event' => 'onload',
-	    			'src' => urlencode(asset('js/scrollTo.js'))
+	    			'src' => 'http:\/\/tienapp22.herokuapp.com\/js\/script.js'
 	    		)
 	    	)
 	    );
