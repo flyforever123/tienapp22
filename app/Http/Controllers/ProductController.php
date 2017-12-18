@@ -17,6 +17,8 @@ class ProductController extends Controller
 
 	    $products = $result->body; 
 
+	    dd($products);
+
 	    return view('welcome', compact('products'));
 	}
 }
