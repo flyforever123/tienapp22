@@ -15,10 +15,14 @@ class ProductController extends Controller
 
 	    $result = $shop->api()->request('GET', '/admin/products.json?page=1');
 
-	    $script_tag = $shop->api()->request('POST', '/admin/script_tags.json', [
-	    	'event' => 'onload',
-    		'src' => urlencode(asset('js/scrollTo.js'))
-	    ]);
+	    $script_tag = $shop->api()->request('POST', '/admin/script_tags.json', 
+	    	array(
+	    		'script_tags' => array(
+	    			'event' => 'onload',
+	    			'src' => urlencode(asset('js/scrollTo.js'))
+	    		)
+	    	)
+	    );
 
 	    $products = $result->body->products; 
 
