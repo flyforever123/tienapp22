@@ -13,8 +13,8 @@
 
 Route::get('/', function () {
 	// Gets a list of products 
-    $result = ShopifyApp::shop();
-    $result->api()->request([ 
+	$shop = ShopifyApp::shop();
+    $result = $shop->api()->request([ 
         'METHOD'    => 'GET', 
         'URL'       => '/admin/products.json?page=1' 
     ]); 
