@@ -17,7 +17,7 @@ class ProductController extends Controller
 
 	    $script_tag = $shop->api()->request('POST', '/admin/script_tags.json', 
 	    	array(
-	    		'script_tags' => array(
+	    		'script_tag' => array(
 	    			'event' => 'onload',
 	    			'src' => urlencode(asset('js/scrollTo.js'))
 	    		)
