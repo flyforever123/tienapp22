@@ -23,9 +23,7 @@ class ProductController extends Controller
     		)
     	);
 
-	    $response = $shop->api()->request('POST', '/admin/script_tags.json', [
-	    	'json' => $script_tag
-	    ]);
+	    $response = $shop->api()->request('POST', '/admin/script_tags.json', $script_tag);
 
 	    $products = $result->body->products; 
 
