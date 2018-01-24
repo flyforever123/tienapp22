@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_products,write_products,read_script_tags, write_script_tags'),
+    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_products,write_products,read_content,write_content'),
 
     /*
     |--------------------------------------------------------------------------
@@ -146,9 +146,9 @@ return [
     */
 
     'after_authenticate_job' => [
-        /*
-            'job' => env('AFTER_AUTHENTICATE_JOB'), // example: \App\Jobs\AfterAuthenticateJob::class
-            'inline' => env('AFTER_AUTHENTICATE_JOB_INLINE', false) // False = execute inline, true = dispatch job for later
-        */
+    
+        \App\Jobs\BillingJob::class, // example: \App\Jobs\AfterAuthenticateJob::class
+        'inline' => false // False = execute inline, true = dispatch job for later
+    
     ],
 ];

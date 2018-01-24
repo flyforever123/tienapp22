@@ -9,60 +9,43 @@ use OhMyBrew\ShopifyApp\Models\Shop;
 use OhMyBrew\BasicShopifyAPI;
 use Response;
 
-class ProductController extends Controller
+class PageController extends Controller
 {
-
-    public function __construct() 
-    {
-    	$this->middleware('auth.charge');
-	}
-
-	// Return view for Meta tags
+    // Return view for Meta tags
 	public function metatags()
 	{
 		if(isset($_GET['id'])) {
-			$product_id = $_GET['id'];
+			$page_id = $_GET['id'];
 		} else {
-			$product_id = $_GET['product_id'];
+			$page_id = $_GET['page_id'];
 		}
 
-		$type = 'products';
+		$type = 'pages';
 
-		return view('meta-tags', compact('product_id', 'type'));
+		return view('meta-tags-page', compact('page_id', 'type'));
 	}
 
-	// Get Meta tags value of specific product
+	// Get Meta tags value of specific page
 	public function api_metatags() {
 
 		$shop = ShopifyApp::shop();
 
-		$product_id = Input::get('product_id');
+		$page_id = Input::get('page_id');
 
-		$url = '/admin/products/'. $product_id .'/metafields.json';
-
-	    $result = $shop->api()->request('GET', $url);
-
-	    return response()->json($result);
-	}
-
-	// Get Product information
-	public function api_product() {
-		$shop = ShopifyApp::shop();
-
-		$product_id = Input::get('ids');
-
-		$url = '/admin/products.json?ids='. $product_id;
+		$url = '/admin/pages/'. $page_id .'/metafields.json';
 
 	    $result = $shop->api()->request('GET', $url);
 
 	    return response()->json($result);
 	}
 
-	// Get Shop information
-	public function api_shop() {
+	// Get Page information
+	public function api_page() {
 		$shop = ShopifyApp::shop();
 
-		$url = '/admin/shop.json';
+		$page_id = Input::get('ids');
+
+		$url = '/admin/pages/'. $page_id . '.json';
 
 	    $result = $shop->api()->request('GET', $url);
 
@@ -74,9 +57,9 @@ class ProductController extends Controller
 
 		$shop = ShopifyApp::shop();
 
-		$product_id = $request->json('id');
+		$page_id = $request->json('id');
 
-		$url = '/admin/products/' . $product_id . '/metafields.json';
+		$url = '/admin/pages/' . $page_id . '/metafields.json';
 
 		if($type == 'title') {
 			$meta_title = $request->json('title_value');
@@ -114,13 +97,13 @@ class ProductController extends Controller
 
 		$custom_handle = $request->json('url_value');
 
-		$product_id = $request->json('id');
+		$page_id = $request->json('id');
 
-		$url = '/admin/products/' . $product_id . '.json';
+		$url = '/admin/pages/' . $page_id . '.json';
 
 		$data = array
 		(
-			'product' => array(
+			'page' => array(
 				'handle' => $custom_handle
 			)
 		);

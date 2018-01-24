@@ -9,64 +9,75 @@ use OhMyBrew\ShopifyApp\Models\Shop;
 use OhMyBrew\BasicShopifyAPI;
 use Response;
 
-class ProductController extends Controller
+class PostController extends Controller
 {
-
-    public function __construct() 
-    {
-    	$this->middleware('auth.charge');
-	}
-
-	// Return view for Meta tags
+    // Return view for Meta tags
 	public function metatags()
 	{
 		if(isset($_GET['id'])) {
-			$product_id = $_GET['id'];
+			$post_id = $_GET['id'];
 		} else {
-			$product_id = $_GET['product_id'];
+			$post_id = $_GET['post_id'];
 		}
 
-		$type = 'products';
+		$type = 'articles';
 
-		return view('meta-tags', compact('product_id', 'type'));
+		return view('meta-tags-post', compact('post_id', 'type'));
 	}
 
-	// Get Meta tags value of specific product
+	// Get Meta tags value of specific post
 	public function api_metatags() {
 
 		$shop = ShopifyApp::shop();
 
-		$product_id = Input::get('product_id');
+		$post_id = Input::get('post_id');
 
-		$url = '/admin/products/'. $product_id .'/metafields.json';
-
-	    $result = $shop->api()->request('GET', $url);
-
-	    return response()->json($result);
-	}
-
-	// Get Product information
-	public function api_product() {
-		$shop = ShopifyApp::shop();
-
-		$product_id = Input::get('ids');
-
-		$url = '/admin/products.json?ids='. $product_id;
+		$url = '/admin/articles/'. $post_id .'/metafields.json';
 
 	    $result = $shop->api()->request('GET', $url);
 
 	    return response()->json($result);
 	}
 
-	// Get Shop information
-	public function api_shop() {
+	// Get post information
+	public function api_post() {
 		$shop = ShopifyApp::shop();
 
-		$url = '/admin/shop.json';
+		$post_id = Input::get('ids');
+
+		$url = '/admin/articles/'. $post_id . '.json';
 
 	    $result = $shop->api()->request('GET', $url);
 
 	    return response()->json($result);
+	}
+
+	// Get blog information
+	public function api_blog(Request $request) {
+		$shop = ShopifyApp::shop();
+
+		$post_id = Input::get('post_id');
+
+		$url = '/admin/articles/'. $post_id . '.json';
+
+	    $article = $shop->api()->request('GET', $url);
+
+	    $blog_id = $article->body->article->blog_id;
+
+	    $blog = $shop->api()->request('GET', '/admin/blogs/' . $blog_id . '.json')->body->blog;
+
+	    $blog_handle = $blog->handle;
+
+	    $blog_id = $blog->id;
+
+	    $blog_info = array(
+	    	'blog_info' => array (
+		    	'blog_handle' => $blog_handle,
+		    	'blog_id' => $blog_id
+		    )
+	    );
+
+	    return response()->json($blog_info);
 	}
 
 	// Save Data
@@ -74,9 +85,9 @@ class ProductController extends Controller
 
 		$shop = ShopifyApp::shop();
 
-		$product_id = $request->json('id');
+		$post_id = $request->json('id');
 
-		$url = '/admin/products/' . $product_id . '/metafields.json';
+		$url = '/admin/articles/' . $post_id . '/metafields.json';
 
 		if($type == 'title') {
 			$meta_title = $request->json('title_value');
@@ -114,13 +125,13 @@ class ProductController extends Controller
 
 		$custom_handle = $request->json('url_value');
 
-		$product_id = $request->json('id');
+		$article_id = $request->json('id');
 
-		$url = '/admin/products/' . $product_id . '.json';
+		$url = '/admin/articles/' . $article_id . '.json';
 
 		$data = array
 		(
-			'product' => array(
+			'article' => array(
 				'handle' => $custom_handle
 			)
 		);
